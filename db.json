@@ -1,0 +1,24 @@
+{
+  "posts": [
+    {
+      "title": "test",
+      "body": "test",
+      "id": 1
+    },
+    {
+      "title": "test2",
+      "body": "test2",
+      "id": 2
+    },
+    {
+      "title": "연습",
+      "body": "연습",
+      "id": 3
+    },
+    {
+      "title": "ttt",
+      "body": "ttt",
+      "id": 4
+    }
+  ]
+}

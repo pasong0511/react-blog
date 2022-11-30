@@ -1,22 +1,22 @@
-import { useState } from "react";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import BlogForm from "./components/BlogForm";
+import NavBar from "./components/NavBar";
 
 function App() {
-    const [title, setTitle] = useState("");
-
     return (
-        <div className="container">
-            <div className="mb-3">
-                <label className="form-label">Title</label>
-                <input
-                    className="form-control"
-                    value={title}
-                    onChange={(event) => {
-                        setTitle(event.target.value);
-                    }}
-                />
+        <Router>
+            <NavBar />
+            <div className="container">
+                <Switch>
+                    <Route path="/" exact>
+                        Home Page
+                    </Route>
+                    <Route path="/blogs">
+                        <BlogForm />
+                    </Route>
+                </Switch>
             </div>
-            <button className="btn btn-primary">Post</button>
-        </div>
+        </Router>
     );
 }
 
