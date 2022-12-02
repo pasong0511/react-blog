@@ -1,23 +1,13 @@
 {
   "posts": [
     {
-      "title": "test",
-      "body": "test",
+      "title": "1",
+      "body": "1",
       "id": 1
     },
     {
-      "title": "test2",
-      "body": "test2",
-      "id": 2
-    },
-    {
-      "title": "연습",
-      "body": "연습",
-      "id": 3
-    },
-    {
-      "title": "ttt",
-      "body": "ttt",
+      "title": "4",
+      "body": "4",
       "id": 4
     }
   ]
