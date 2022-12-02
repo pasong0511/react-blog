@@ -3,6 +3,7 @@ import axios from "axios";
 import { useEffect } from "react";
 import { useState } from "react";
 import LoadingSpiner from "../components/LoadingSpiner";
+import { Link } from "react-router-dom";
 
 const ShowPage = () => {
     //json db의 :id와 파라미터를 맞춰줘야한다.
@@ -12,7 +13,6 @@ const ShowPage = () => {
 
     const getPosts = () => {
         axios.get(`http://localhost:3001/posts/${id}`).then((res) => {
-            console.log(res);
             setPost(res.data); //받아온 데이터 post에 넣기
             setLoading(false);
         });
@@ -34,7 +34,15 @@ const ShowPage = () => {
 
     return (
         <div>
-            <h1>{post.title}</h1>
+            <div className="d-flex">
+                <h1 className="flex-grow-1">{post.title}</h1>
+                <div>
+                    <Link className="btn btn-primary" to={`/blogs/${id}/edit`}>
+                        수정
+                    </Link>
+                </div>
+            </div>
+
             <small className="text-muted">Create At : {printDate(post.createdAt)}</small>
             <hr />
             <div>{post.body}</div>

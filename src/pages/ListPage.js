@@ -41,23 +41,25 @@ const ListPage = () => {
             return <div>데이터 없음</div>;
         }
 
-        return posts.map((post) => {
-            return (
-                <Card key={post.id} title={post.title} onClick={() => history.push(`/blogs/${post.id}`)}>
-                    <div>
-                        <button
-                            className="btn btn-danger btn-sm"
-                            onClick={
-                                //이벤트를 넘겨주기 위해서 화살표 함수 사용
-                                (e) => deleteBlog(e, post.id)
-                            }
-                        >
-                            Delete
-                        </button>
-                    </div>
-                </Card>
-            );
-        });
+        return posts
+            .filter((post) => post.publish === true)
+            .map((post) => {
+                return (
+                    <Card key={post.id} title={post.title} onClick={() => history.push(`/blogs/${post.id}`)}>
+                        <div>
+                            <button
+                                className="btn btn-danger btn-sm"
+                                onClick={
+                                    //이벤트를 넘겨주기 위해서 화살표 함수 사용
+                                    (e) => deleteBlog(e, post.id)
+                                }
+                            >
+                                Delete
+                            </button>
+                        </div>
+                    </Card>
+                );
+            });
     };
 
     useEffect(() => {

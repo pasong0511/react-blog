@@ -20,7 +20,7 @@ const routes = [
         component: CreatePage,
     },
     {
-        path: "/blogs/edit",
+        path: "/blogs/:id/edit",
         component: EditPage,
     },
     {
