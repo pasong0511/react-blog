@@ -1,14 +1,14 @@
 import BlogList from "../components/BlogList";
 
-const ListPage = () => {
+const AdminPage = () => {
     return (
         <div>
             <div className="d-flex justify-content-between">
-                <h1>Blogs</h1>
+                <h1>Admin</h1>
             </div>
-            <BlogList />
+            <BlogList isAdmin={true} />
         </div>
     );
 };
 
-export default ListPage;
+export default AdminPage;
