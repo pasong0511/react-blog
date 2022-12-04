@@ -2,7 +2,7 @@ import { useParams } from "react-router-dom";
 import axios from "axios";
 import { useEffect } from "react";
 import { useState } from "react";
-import LoadingSpiner from "../components/LoadingSpiner";
+import LoadingSpinner from "../components/LoadingSpinner";
 import { Link } from "react-router-dom";
 
 const ShowPage = () => {
@@ -29,7 +29,7 @@ const ShowPage = () => {
 
     //로딩중인 경우
     if (loading) {
-        return <LoadingSpiner />;
+        return <LoadingSpinner />;
     }
 
     return (
@@ -43,7 +43,9 @@ const ShowPage = () => {
                 </div>
             </div>
 
-            <small className="text-muted">Create At : {printDate(post.createdAt)}</small>
+            <small className="text-muted">
+                Create At : {printDate(post.createdAt)}
+            </small>
             <hr />
             <div>{post.body}</div>
         </div>

@@ -1,60 +1,25 @@
 {
   "posts": [
     {
-      "title": "6시다",
-      "body": "6시다",
+      "title": "test1",
+      "body": "6시다22",
       "publish": false,
       "createdAt": 1670014774328,
       "id": 10
     },
     {
-      "title": "자야겠다",
-      "body": "자야겠다",
+      "title": "test11",
+      "body": "5",
       "publish": false,
-      "createdAt": 1670014829903,
-      "id": 11
+      "createdAt": 1670060432299,
+      "id": 21
     },
     {
-      "title": "비공개",
-      "body": "비공개",
-      "publish": false,
-      "createdAt": 1670014950684,
-      "id": 12
-    },
-    {
-      "title": "뭐야 보이잖어",
-      "body": "뭐야 보이잖어",
+      "title": "test18",
+      "body": "4",
       "publish": true,
-      "createdAt": 1670014960702,
-      "id": 13
-    },
-    {
-      "title": "체크하면 안보이넹",
-      "body": "체크하면 안보이넹",
-      "publish": false,
-      "createdAt": 1670014974855,
-      "id": 14
-    },
-    {
-      "title": "아네녀ㅛ",
-      "body": "아네녀ㅛ",
-      "publish": true,
-      "createdAt": 1670014986368,
-      "id": 15
-    },
-    {
-      "title": "111",
-      "body": "111",
-      "publish": false,
-      "createdAt": 1670015059275,
-      "id": 16
-    },
-    {
-      "title": "22",
-      "body": "222",
-      "publish": true,
-      "createdAt": 1670015064675,
-      "id": 17
+      "createdAt": 1670060917080,
+      "id": 28
     }
   ]
 }
