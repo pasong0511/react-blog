@@ -1,8 +1,16 @@
 import propTypes from "prop-types";
 
+//import { useSelector } from "react-redux";
+
 //children을 통해서 내부 컴포넌트를 받아올 수 있다.
 //자식으로 onClick함수를 받아서 넣어주자
 const Card = ({ title, onClick, children }) => {
+    // const toasts = useSelector((state) => {
+    //     return state.toast.toasts;
+    // });
+
+    //console.log("헬로1", toasts);
+
     return (
         <div className="card mb-3 cursor-pointer" onClick={onClick}>
             <div className="card-body py-2 d-flex align-items-center">

@@ -6,8 +6,8 @@ import propTypes from "prop-types";
 import Pagination from "./Pagination";
 import Card from "../components/Card";
 import LoadingSpinner from "../components/LoadingSpinner";
-import Toast from "./Toast";
-import { v4 as uuid4 } from "uuid";
+import useToast from "../hooks/toast";
+//import { useSelector } from "react-redux";
 
 const BlogList = ({ isAdmin }) => {
     const history = useHistory(); //useHistory 사용하기 위해서 선언
@@ -19,9 +19,22 @@ const BlogList = ({ isAdmin }) => {
     const [currentPage, setCurrentPage] = useState(1);
     const [numberOfPosts, setNumberOfPosts] = useState(0);
     const [numberOfPages, setNumberOfPages] = useState(0);
-    const [toasts, setToasts] = useState([]);
-
     const [searchText, setSearchText] = useState("");
+    //const [toasts, setToasts] = useState([]);
+
+    // //리덕스에서 사용
+    // const toast1 = useSelector((state) => {
+    //     //.toast : store에 등록한 이름으로 사용할 수 있다.
+    //     //.toasts : toastSlice에 등록한 toasts: []을 사용할 수 있다.
+    //     return state.toast.toasts;
+    // });
+
+    //console.log("리덕스 테스트", toast1);
+
+    const { addToast } = useToast();
+
+    //const toasts = useRef([]); //useRef를 통하면 업데이트를 하면 즉시 업데이트가 된다.
+    //const [, setToastRerender] = useState(false); //state자체는 사용하지 않으므로 삭제
 
     const limit = 5;
 
@@ -73,24 +86,6 @@ const BlogList = ({ isAdmin }) => {
         setCurrentPage(parseInt(pageParam) || 1); //아무것도 없을때 페이지는 1
         getPosts(parseInt(pageParam) || 1);
     }, []); //pageParam이 변경될때마다 데이터 get
-
-    const addToast = (toast) => {
-        const toastWithId = {
-            ...toast,
-            id: uuid4(), //id 추가
-        };
-        setToasts((prev) => [...prev, toastWithId]); //기존에 있던거 넣어주고, 새로운 것도 넣어줌
-    };
-
-    const deleteToast = (id) => {
-        console.log("클릭한 햄토스트", id);
-
-        const filteredToasts = toasts.filter((toast) => {
-            return toast.id !== id;
-        });
-
-        setToasts(filteredToasts); //지운 토스트 결과 업데이트
-    };
 
     const deleteBlog = (e, id) => {
         e.stopPropagation();
@@ -145,10 +140,9 @@ const BlogList = ({ isAdmin }) => {
     // ]}
     return (
         <div>
-            <Toast toasts={toasts} deleteToast={deleteToast} />
             <input
                 type="text"
-                placeholder="search..."
+                placeholder="Search.."
                 className="form-control"
                 value={searchText}
                 onChange={(e) => setSearchText(e.target.value)}
@@ -160,7 +154,6 @@ const BlogList = ({ isAdmin }) => {
             ) : (
                 <>
                     {renderBlogList()}
-                    {/* numberOfPages가 1보다 큰 경우에만 페이지네이션을 보여줌 */}
                     {numberOfPages > 1 && (
                         <Pagination
                             currentPage={currentPage}

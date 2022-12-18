@@ -1,6 +1,11 @@
 import { Link, NavLink } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
+import { login, logout } from "../store/authSlice";
 
 const NavBar = () => {
+    const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
+    const dispatch = useDispatch();
+
     return (
         <nav className="navbar navbar-dark bg-dark">
             <div className="container">
@@ -9,15 +14,31 @@ const NavBar = () => {
                 </Link>
                 <ul className="navbar-nav" style={{ flexDirection: "row" }}>
                     <li className="nav-item me-2">
-                        <NavLink
-                            activeClassName="active"
-                            className="nav-link"
-                            aria-current="page"
-                            to="/admin"
+                        <button
+                            className="text-white btn btn-link text-decoration-none"
+                            onClick={() => {
+                                if (isLoggedIn) {
+                                    dispatch(logout());
+                                } else {
+                                    dispatch(login());
+                                }
+                            }}
                         >
-                            Admin
-                        </NavLink>
+                            {isLoggedIn ? "Logout" : "Login"}
+                        </button>
                     </li>
+                    {isLoggedIn ? (
+                        <li className="nav-item me-2">
+                            <NavLink
+                                activeClassName="active"
+                                className="nav-link"
+                                aria-current="page"
+                                to="/admin"
+                            >
+                                Admin
+                            </NavLink>
+                        </li>
+                    ) : null}
                     <li className="nav-item">
                         <NavLink
                             activeClassName="active"

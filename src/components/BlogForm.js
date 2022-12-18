@@ -2,8 +2,11 @@ import { useEffect, useState } from "react";
 import { useHistory, useParams } from "react-router-dom";
 import propTypes from "prop-types";
 import axios from "axios";
+import useToast from "../hooks/toast";
 
 const BlogForm = ({ editing }) => {
+    //const [toasts, addToast, deleteToast] = useToast();
+
     const history = useHistory();
     const { id } = useParams(); //수정시 URL 파라미터에서 id 값 가져오기
 
@@ -16,6 +19,14 @@ const BlogForm = ({ editing }) => {
 
     const [titleError, setTitleError] = useState(false);
     const [bodyError, setBodyError] = useState(false);
+
+    const { addToast } = useToast();
+
+    //const [toasts, setToasts] = useState([]);
+    //const toasts = useRef([]); //useRef를 통하면 업데이트를 하면 즉시 업데이트가 된다.
+    //useRef는 리렌더링을 발생시키지 않는다.
+    //리렌더링을 위해서 useState를 사용한다.
+    //const [, setToastRerender] = useState(false); //state자체는 사용하지 않으므로 삭제
 
     //수정시 기존 데이터를 가져오기 위해서 get 요청
     useEffect(() => {
@@ -89,7 +100,7 @@ const BlogForm = ({ editing }) => {
                         history.push(`/blogs/${id}`);
                     });
             } else {
-                console.log(title, body);
+                //새로운 글 생성
                 axios
                     .post("http://localhost:3001/posts", {
                         title,
@@ -98,7 +109,12 @@ const BlogForm = ({ editing }) => {
                         createdAt: Date.now(), //생성 시간 추가
                     })
                     .then(() => {
-                        history.push("/admin"); //성공시 목록으로 이동
+                        //토스트 알람 추가
+                        addToast({
+                            type: "success",
+                            text: "Successfullty create",
+                        });
+                        history.push("/admin"); //성공시 목록 페이지로 이동
                     });
             }
         }
@@ -106,6 +122,8 @@ const BlogForm = ({ editing }) => {
 
     return (
         <div>
+            {/* 토스트 알람 */}
+            {/* <Toast toasts={toasts} deleteToast={deleteToast} /> */}
             <h1>{editing ? "Edit" : "Create"} a blog post</h1>
             {/* 에디터 타이틀 */}
             <div className="mb-3">
