@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useHistory, useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router";
 import propTypes from "prop-types";
 import axios from "axios";
 import useToast from "../hooks/toast";
@@ -8,7 +8,7 @@ import LoadingSpinner from "./LoadingSpinner";
 const BlogForm = ({ editing }) => {
     //const [toasts, addToast, deleteToast] = useToast();
 
-    const history = useHistory();
+    const navigate = useNavigate();
     const { id } = useParams(); //수정시 URL 파라미터에서 id 값 가져오기
 
     const [title, setTitle] = useState("");
@@ -74,9 +74,9 @@ const BlogForm = ({ editing }) => {
     //Cancel 버튼 눌렀을 때 페이지 이동
     const goBack = () => {
         if (editing) {
-            history.push(`/blogs/${id}`);
+            navigate(`/blogs/${id}`);
         } else {
-            history.push("/blogs");
+            navigate("/blogs");
         }
     };
 
@@ -117,7 +117,7 @@ const BlogForm = ({ editing }) => {
                         publish: publish,
                     })
                     .then((res) => {
-                        history.push(`/blogs/${id}`);
+                        navigate(`/blogs/${id}`);
                     })
                     .catch((e) => {
                         //토스트 알람 추가
@@ -141,7 +141,7 @@ const BlogForm = ({ editing }) => {
                             type: "success",
                             text: "Successfullty create",
                         });
-                        history.push("/admin"); //성공시 목록 페이지로 이동
+                        navigate("/admin"); //성공시 목록 페이지로 이동
                     })
                     .catch((e) => {
                         //토스트 알람 추가

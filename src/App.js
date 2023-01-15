@@ -1,4 +1,4 @@
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import NavBar from "./components/NavBar";
 import routes from "./routes";
 import Toast from "./components/Toast";
@@ -34,29 +34,25 @@ function App() {
             <NavBar />
             <Toast toasts={toasts} deleteToast={deleteToast} />
             <div className="container mt-3">
-                <Switch>
+                <Routes>
                     {routes.map((route) => {
-                        if (route.auth) {
-                            //권한(true)이 있는 경우에 컴포넌트랑, path넘겨줌
-                            return (
-                                <ProtectedRoute
-                                    path={route.path}
-                                    component={route.component}
-                                    key={route.path}
-                                    exact
-                                />
-                            );
-                        }
                         return (
                             <Route
                                 key={route.path}
-                                exact
                                 path={route.path}
-                                component={route.component}
-                            ></Route>
+                                element={
+                                    route.auth ? (
+                                        <ProtectedRoute
+                                            element={route.element}
+                                        />
+                                    ) : (
+                                        route.element
+                                    )
+                                }
+                            />
                         );
                     })}
-                </Switch>
+                </Routes>
             </div>
         </Router>
     );

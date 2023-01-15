@@ -11,34 +11,34 @@ import NotFoundPage from "./pages/NotFoundPage";
 const routes = [
     {
         path: "/",
-        component: HomePage,
+        element: <HomePage />,
     },
     {
         path: "/blogs",
-        component: ListPage,
+        element: <ListPage />,
     },
     {
         path: "/admin",
-        component: AdminPage,
+        element: <AdminPage />,
         auth: true, //로그인 권한있어야 접근 가능
     },
     {
         path: "/blogs/create",
-        component: CreatePage,
+        element: <CreatePage />,
         auth: true, //로그인 권한있어야 접근 가능
     },
     {
         path: "/blogs/:id/edit",
-        component: EditPage,
+        element: <EditPage />,
         auth: true, //로그인 권한있어야 접근 가능
     },
     {
         path: "/blogs/:id",
-        component: ShowPage,
+        element: <ShowPage />,
     },
     {
         path: "*",
-        component: NotFoundPage,
+        element: <NotFoundPage />,
     },
 ];
 

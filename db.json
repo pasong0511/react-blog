@@ -151,13 +151,6 @@
       "title": "11",
       "body": "11",
       "publish": false,
-      "createdAt": 1671380427895,
-      "id": 55
-    },
-    {
-      "title": "11",
-      "body": "11",
-      "publish": false,
       "createdAt": 1671380446412,
       "id": 57
     },
@@ -181,6 +174,20 @@
       "publish": false,
       "createdAt": 1673775088500,
       "id": 60
+    },
+    {
+      "title": "ㅎㅎ",
+      "body": "ㅎㅎ",
+      "publish": false,
+      "createdAt": 1673790067858,
+      "id": 61
+    },
+    {
+      "title": "비밀아님",
+      "body": "비밀아님",
+      "publish": true,
+      "createdAt": 1673790085814,
+      "id": 62
     }
   ]
 }

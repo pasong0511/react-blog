@@ -1,6 +1,6 @@
 import { useState, useEffect, useCallback } from "react";
 import { useLocation } from "react-router-dom";
-import { useHistory } from "react-router";
+import { useNavigate } from "react-router";
 import axios from "axios";
 import propTypes from "prop-types";
 import Pagination from "./Pagination";
@@ -10,7 +10,7 @@ import useToast from "../hooks/toast";
 //import { useSelector } from "react-redux";
 
 const BlogList = ({ isAdmin }) => {
-    const history = useHistory(); //useHistory 사용하기 위해서 선언
+    const navigate = useNavigate(); //useNavigate 사용하기 위해서 선언
     const location = useLocation(); //url의 ?뒤를 가져올 수 있다.
     const params = new URLSearchParams(location.search); //=숫자가져오기 URLSearchParams : URL의 파라미터 값을 확인하고 싶을때
     const pageParam = params.get("page");
@@ -46,7 +46,7 @@ const BlogList = ({ isAdmin }) => {
     }, [numberOfPosts]);
 
     const onClickPageButton = (page) => {
-        history.push(`${location.pathname}?page=${page}`); //url가 변경된다.
+        navigate(`${location.pathname}?page=${page}`); //url가 변경된다.
         setCurrentPage(page);
         getPosts(page);
     };
@@ -130,7 +130,7 @@ const BlogList = ({ isAdmin }) => {
                 <Card
                     key={post.id}
                     title={post.title}
-                    onClick={() => history.push(`/blogs/${post.id}`)}
+                    onClick={() => navigate.push(`/blogs/${post.id}`)}
                 >
                     {isAdmin ? (
                         <div>
@@ -151,7 +151,7 @@ const BlogList = ({ isAdmin }) => {
     //엔터를 눌렀을때만 검색
     const onSearch = (e) => {
         if (e.key === "Enter") {
-            history.push(`${location.pathname}?page=1`);
+            navigate(`${location.pathname}?page=1`);
             setCurrentPage(1);
             getPosts(1);
         }
