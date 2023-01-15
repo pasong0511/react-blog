@@ -20,6 +20,7 @@ const BlogList = ({ isAdmin }) => {
     const [numberOfPosts, setNumberOfPosts] = useState(0);
     const [numberOfPages, setNumberOfPages] = useState(0);
     const [searchText, setSearchText] = useState("");
+    const [error, setError] = useState("");
     //const [toasts, setToasts] = useState([]);
 
     // //리덕스에서 사용
@@ -77,6 +78,15 @@ const BlogList = ({ isAdmin }) => {
                     setNumberOfPosts(res.headers["x-total-count"]);
                     setPosts(res.data);
                     setLoading(false); //데이터 응답이 다 와서 로딩을 false로 변경
+                })
+                .catch((e) => {
+                    //에러 발생했을 경우
+                    setLoading(false);
+                    setError("디비에 무슨 문제가 있음");
+                    addToast({
+                        text: "디비에 무슨 문제가 있음",
+                        type: "danger",
+                    });
                 });
         },
         [isAdmin, searchText]
@@ -90,11 +100,23 @@ const BlogList = ({ isAdmin }) => {
     const deleteBlog = (e, id) => {
         e.stopPropagation();
 
-        axios.delete(`http://localhost:3001/posts/${id}`).then(() => {
-            //성공후 데이터 리랜더링을 위해서 posts에 있는 id값을 제거해주지
-            setPosts((prevPosts) => prevPosts.filter((post) => post.id !== id));
-            addToast({ text: "Successfullty deleted", type: "success" });
-        });
+        axios
+            .delete(`http://localhost:3001/posts/${id}`)
+            .then(() => {
+                getPosts(1); //삭제 성공시 무조건 1페이지로 이동
+
+                //성공후 데이터 리랜더링을 위해서 posts에 있는 id값을 제거해주지
+                setPosts((prevPosts) =>
+                    prevPosts.filter((post) => post.id !== id)
+                );
+                addToast({ text: "Successfullty deleted", type: "success" });
+            })
+            .catch((e) => {
+                addToast({
+                    text: "삭제할 수 없습니다.",
+                    type: "danger",
+                });
+            });
     };
 
     //로딩이 true이면 스피너 보여줌
@@ -138,6 +160,12 @@ const BlogList = ({ isAdmin }) => {
     //     { text: "으어엉", type: "danger" },
     //     { text: "우아앙", type: "success" },
     // ]}
+
+    //요청에 에러가 있는 경우
+    if (error) {
+        return <div>{error}</div>;
+    }
+
     return (
         <div>
             <input

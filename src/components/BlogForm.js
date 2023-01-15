@@ -3,6 +3,7 @@ import { useHistory, useParams } from "react-router-dom";
 import propTypes from "prop-types";
 import axios from "axios";
 import useToast from "../hooks/toast";
+import LoadingSpinner from "./LoadingSpinner";
 
 const BlogForm = ({ editing }) => {
     //const [toasts, addToast, deleteToast] = useToast();
@@ -22,6 +23,9 @@ const BlogForm = ({ editing }) => {
 
     const { addToast } = useToast();
 
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState("");
+
     //const [toasts, setToasts] = useState([]);
     //const toasts = useRef([]); //useRef를 통하면 업데이트를 하면 즉시 업데이트가 된다.
     //useRef는 리렌더링을 발생시키지 않는다.
@@ -30,15 +34,31 @@ const BlogForm = ({ editing }) => {
 
     //수정시 기존 데이터를 가져오기 위해서 get 요청
     useEffect(() => {
+        //편집 인 경우
         if (editing) {
-            axios.get(`http://localhost:3001/posts/${id}`).then((res) => {
-                setTitle(res.data.title);
-                setOriginalTitle(res.data.title);
-                setBody(res.data.body);
-                setOriginalBody(res.data.body);
-                setPublish(res.data.publish);
-                setOriginalPublish(res.data.publish);
-            });
+            axios
+                .get(`http://localhost:3001/posts/${id}`)
+                .then((res) => {
+                    setTitle(res.data.title);
+                    setOriginalTitle(res.data.title);
+                    setBody(res.data.body);
+                    setOriginalBody(res.data.body);
+                    setPublish(res.data.publish);
+                    setOriginalPublish(res.data.publish);
+
+                    setLoading(false);
+                })
+                .catch((e) => {
+                    setError("서버 에러");
+                    addToast({
+                        type: "danger",
+                        text: "서버 에러",
+                    });
+
+                    setLoading(false);
+                });
+        } else {
+            setLoading(false);
         }
     }, [id, editing]);
 
@@ -98,6 +118,13 @@ const BlogForm = ({ editing }) => {
                     })
                     .then((res) => {
                         history.push(`/blogs/${id}`);
+                    })
+                    .catch((e) => {
+                        //토스트 알람 추가
+                        addToast({
+                            type: "danger",
+                            text: "업데이트 할 수 없습니다.",
+                        });
                     });
             } else {
                 //새로운 글 생성
@@ -115,10 +142,26 @@ const BlogForm = ({ editing }) => {
                             text: "Successfullty create",
                         });
                         history.push("/admin"); //성공시 목록 페이지로 이동
+                    })
+                    .catch((e) => {
+                        //토스트 알람 추가
+                        addToast({
+                            type: "danger",
+                            text: "생성할 수 없습니다.",
+                        });
                     });
             }
         }
     };
+
+    //로딩중인 경우
+    if (loading) {
+        return <LoadingSpinner />;
+    }
+
+    if (error) {
+        return <div>{error}</div>;
+    }
 
     return (
         <div>

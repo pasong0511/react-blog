@@ -20,17 +20,17 @@ const routes = [
     {
         path: "/admin",
         component: AdminPage,
-        auth: true,
+        auth: true, //로그인 권한있어야 접근 가능
     },
     {
         path: "/blogs/create",
         component: CreatePage,
-        auth: true,
+        auth: true, //로그인 권한있어야 접근 가능
     },
     {
         path: "/blogs/:id/edit",
         component: EditPage,
-        auth: true,
+        auth: true, //로그인 권한있어야 접근 가능
     },
     {
         path: "/blogs/:id",

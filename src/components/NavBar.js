@@ -27,6 +27,7 @@ const NavBar = () => {
                             {isLoggedIn ? "Logout" : "Login"}
                         </button>
                     </li>
+                    {/* 로그인을 했을 경우에만 admin 페이지 보여줌 */}
                     {isLoggedIn ? (
                         <li className="nav-item me-2">
                             <NavLink
